@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+ 
 @Entity
 @Table(name= "employees")
 @Data
@@ -17,6 +18,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Employee {
 
+ 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name= "employees")
+public class Employee {
+	
+ 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

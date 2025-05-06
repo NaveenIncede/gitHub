@@ -54,6 +54,20 @@ public class EmployeeService {
         }
         return false;
     }
+ 
+    
+    //
+    // Soft delete (set isDeleted to true)
+    public boolean deleteEmployeewithoutSoftdeleting(Long id) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isPresent()) {
+            employeeRepository.deleteById(id);  // Permanently delete the employee
+            return true;
+        }
+        return false;
+    }
+
+ 
 
     // Convert DTO to Entity
     private Employee mapToEntity(EmployeeDTO dto) {

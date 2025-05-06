@@ -38,6 +38,20 @@ public class EmployeeController {
             return ResponseEntity.notFound().build();
         }
     }
+ 
+    // with out soft deleting 
+    
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> deleteEmployeeWithoutSoftDeleting(@PathVariable Long id) {
+        boolean isDeleted = employeeService.deleteEmployeewithoutSoftdeleting(id);
+
+        if (isDeleted) {
+            return ResponseEntity.ok("Employee with ID " + id + " has been successfully deleted.");
+        } else {
+            return ResponseEntity.status(404).body("Employee with ID " + id + " not found.");
+        }
+    }
+ 
 
     // Get all active (non-deleted) employees
     @GetMapping
