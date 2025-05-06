@@ -12,6 +12,7 @@ import com.incede.employee.DTO.employeeDTO.EmployeeDTO;
 import com.incede.employee.service.employeeService.EmployeeService;
 
 //created by naveen
+//new api configuration
 @RestController
 @RequestMapping("/api/employee")
 public class EmployeeController {
