@@ -67,33 +67,50 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$.salary").value(100000.0));
     }
 
+//    @Test
+//    public void testDeleteEmployee() throws Exception {
+//        Long employeeId = 1L;
+//
+//        // Create a mock employee object
+//        Employee employee = new Employee();
+//        employee.setId(employeeId);
+//        employee.setFirstName("John");
+//        employee.setLastName("Doe");
+//        employee.setEmail("john.doe@example.com");
+//        employee.setDesignation("Developer");
+//        employee.setSalary(100000.0);
+//        employee.setIsDeleted(false);
+//
+//        // Mock the repository methods
+//        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
+//        when(employeeRepository.save(any(Employee.class))).thenReturn(employee); // Mock save
+//
+//        // Perform the DELETE API call
+//        mockMvc.perform(post("/api/employee/delete/{id}", employeeId))  // Use `post()` as per your controller
+//                .andExpect(status().isOk())  // Expect status 200 OK
+//                .andExpect(content().string("Employee soft deleted successfully."));  // Expect success message
+//
+//        // Verify that deleteEmployee method was called once
+//        verify(employeeRepository, times(1)).findById(employeeId); // Check if findById was called once
+//        verify(employeeRepository, times(1)).save(any(Employee.class)); // Verify if save was called once
+//    }
+    
     @Test
     public void testDeleteEmployee() throws Exception {
         Long employeeId = 1L;
 
-        // Create a mock employee object
-        Employee employee = new Employee();
-        employee.setId(employeeId);
-        employee.setFirstName("John");
-        employee.setLastName("Doe");
-        employee.setEmail("john.doe@example.com");
-        employee.setDesignation("Developer");
-        employee.setSalary(100000.0);
-        employee.setIsDeleted(false);
-
-        // Mock the repository methods
-        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
-        when(employeeRepository.save(any(Employee.class))).thenReturn(employee); // Mock save
+        // Mock the service layer to return true for deletion
+        when(employeeService.deleteEmployee(employeeId)).thenReturn(true);
 
         // Perform the DELETE API call
-        mockMvc.perform(post("/api/employee/delete/{id}", employeeId))  // Use `post()` as per your controller
-                .andExpect(status().isOk())  // Expect status 200 OK
-                .andExpect(content().string("Employee soft deleted successfully."));  // Expect success message
+        mockMvc.perform(post("/api/employee/delete/{id}", employeeId))  // Still using POST
+                .andExpect(status().isOk())
+                .andExpect(content().string("Employee soft deleted successfully."));
 
-        // Verify that deleteEmployee method was called once
-        verify(employeeRepository, times(1)).findById(employeeId); // Check if findById was called once
-        verify(employeeRepository, times(1)).save(any(Employee.class)); // Verify if save was called once
+        // Verify that the service method was called
+        verify(employeeService, times(1)).deleteEmployee(employeeId);
     }
+
 
 
 
